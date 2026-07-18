@@ -1,0 +1,55 @@
+{
+  "monthly_income": 6500,
+  "expenses": [
+    {
+      "name": "Rent",
+      "category": "Housing",
+      "amount": 1800
+    },
+    {
+      "name": "Groceries",
+      "category": "Food",
+      "amount": 520
+    },
+    {
+      "name": "Car Payment",
+      "category": "Transportation",
+      "amount": 480
+    },
+    {
+      "name": "Utilities",
+      "category": "Utilities",
+      "amount": 260
+    },
+    {
+      "name": "Dining",
+      "category": "Food",
+      "amount": 220
+    },
+    {
+      "name": "Subscriptions",
+      "category": "Entertainment",
+      "amount": 85
+    }
+  ],
+  "holdings": [
+    {
+      "symbol": "AAPL",
+      "purchase_price": 170,
+      "current_price": 195,
+      "shares": 5
+    },
+    {
+      "symbol": "MSFT",
+      "purchase_price": 380,
+      "current_price": 425,
+      "shares": 3
+    },
+    {
+      "symbol": "NVDA",
+      "purchase_price": 110,
+      "current_price": 125,
+      "shares": 8
+    }
+  ]
+}
