@@ -23,27 +23,73 @@ class FinanceState(TypedDict, total=False):
     risk_result: dict[str, Any]
     final_report: dict[str, Any]
     errors: list[str]
+def select_agents(request: str) -> list[str]:
+    text = request.lower()
 
+    selected: list[str] = []
 
-def supervisor_node(state: FinanceState) -> FinanceState:
-    """Create the multi-agent execution plan."""
+    if any(
+        word in text
+        for word in ["portfolio", "investment", "return", "holding"]
+    ):
+        selected.append("Portfolio Agent")
 
-    return {
-        "request": state.get(
-            "request",
-            "Create a complete finance report",
-        ),
-        "plan": [
+    if any(
+        word in text
+        for word in ["budget", "income", "saving"]
+    ):
+        selected.append("Budget Agent")
+
+    if any(
+        word in text
+        for word in ["expense", "spending", "category"]
+    ):
+        selected.append("Expense Agent")
+
+    if any(
+        word in text
+        for word in ["risk", "concentration", "exposure"]
+    ):
+        selected.extend(
+            ["Portfolio Agent", "Risk Agent"]
+        )
+
+    if any(
+        word in text
+        for word in ["complete", "full", "finance report", "all"]
+    ):
+        selected = [
             "Portfolio Agent",
             "Budget Agent",
             "Expense Agent",
             "Risk Agent",
-            "Report Agent",
-        ],
+        ]
+
+    if not selected:
+        selected = [
+            "Portfolio Agent",
+            "Budget Agent",
+            "Expense Agent",
+            "Risk Agent",
+        ]
+
+    return list(dict.fromkeys(selected))
+
+
+def supervisor_node(state: FinanceState) -> FinanceState:
+    request = state.get(
+        "request",
+        "Create a complete finance report",
+    )
+
+    selected_agents = select_agents(request)
+
+    return {
+        "request": request,
+        "plan": selected_agents + ["Report Agent"],
         "finance_data": load_finance_data(),
         "errors": [],
     }
-
 
 def portfolio_node(state: FinanceState) -> FinanceState:
     """Run portfolio analysis."""
