@@ -1,4 +1,4 @@
-# 💰 Enterprise Finance Agentic AI with MCP
+# 💰 # Enterprise Multi-Agent Finance AI with MCP
 
 > A production-style **Multi-Agent Finance AI Platform** built using **Python, FastAPI, LangGraph, FastMCP, SQLAlchemy, Docker, and MCP**.
 
