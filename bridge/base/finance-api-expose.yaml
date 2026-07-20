@@ -1,0 +1,18 @@
+#! finance-api-expose.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: finance-api
+    namespace: enterprise-finance-agent
+    labels:
+        com.docker.compose.project: enterprise_finance_agent
+        com.docker.compose.service: finance-api
+spec:
+    selector:
+        com.docker.compose.project: enterprise_finance_agent
+        com.docker.compose.service: finance-api
+    ports:
+        - name: finance-ap-8000
+          port: 8000
+          targetPort: finance-ap-8000

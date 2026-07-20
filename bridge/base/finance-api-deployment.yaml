@@ -1,0 +1,59 @@
+#! finance-api-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: finance-api
+    namespace: enterprise-finance-agent
+    labels:
+        com.docker.compose.project: enterprise_finance_agent
+        com.docker.compose.service: finance-api
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: enterprise_finance_agent
+            com.docker.compose.service: finance-api
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: enterprise_finance_agent
+                com.docker.compose.service: finance-api
+                com.docker.compose.network.default: "true"
+        spec:
+            containers:
+                - name: enterprise-finance-agent
+                  image: enterprise_finance_agent-finance-api
+                  imagePullPolicy: IfNotPresent
+                  args:
+                    - uvicorn
+                    - app.api.routes:api
+                    - --host
+                    - 0.0.0.0
+                    - --port
+                    - 8000
+                  env:
+                    - name: ACCESS_TOKEN_EXPIRE_MINUTES
+                      value: "30"
+                    - name: DATABASE_URL
+                      value: "sqlite:///./finance_agent.db"
+                    - name: JWT_ALGORITHM
+                      value: "HS256"
+                    - name: JWT_SECRET_KEY
+                      value: "e0507e064e12398e1ad15a0405f442d6c491397fd3929df4623d0a688a5133e0"
+                    - name: LLM_API_KEY
+                      value: "4QohLZwKQiuGUiIkRnB2OGmxHXiTroI2V129_52ZN3NokB1nEF6RRRmwjrJJN9iiqJxA_swOANT3BlbkFJBLRtYS2kBfdzTIEwXQrZQgm7D00XEWcIUF7C3wKimkQknI840Oz3gcJ_XmZ3sXrv9euh82AIMA"
+                    - name: LLM_PROVIDER
+                      value: "openai"
+                  ports:
+                    - name: finance-ap-8000
+                      containerPort: 8000
+                  volumeMounts:
+                    - name: app-finance-agent-db
+                      mountPath: /app/finance_agent.db
+            volumes:
+                - name: app-finance-agent-db
+                  hostPath:
+                    path: C:\AI\AgenticAI\enterprise_finance_agent\finance_agent.db

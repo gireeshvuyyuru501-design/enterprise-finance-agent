@@ -1,0 +1,11 @@
+services:
+  finance-api:
+    build: .
+    container_name: enterprise-finance-agent
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./finance_agent.db:/app/finance_agent.db
+    command: uvicorn app.api.routes:api --host 0.0.0.0 --port 8000

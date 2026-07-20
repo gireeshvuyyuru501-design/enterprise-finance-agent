@@ -1,0 +1,8 @@
+#! 0-enterprise-finance-agent-namespace.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: enterprise-finance-agent
+    labels:
+        com.docker.compose.project: enterprise_finance_agent
